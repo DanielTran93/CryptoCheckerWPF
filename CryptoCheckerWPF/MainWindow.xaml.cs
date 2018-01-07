@@ -25,6 +25,10 @@ namespace CoinMarketCapWPF
 
     public partial class MainWindow : Window
     {
+
+        
+        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -51,13 +55,17 @@ namespace CoinMarketCapWPF
 
         }
 
-        async void getPrice_Click(object sender, RoutedEventArgs e)
+        public async void getPrice_Click(object sender, RoutedEventArgs e)
         {
-            string crypto = cryptoName.Text;
+
             
+            //string crypto = cryptoList.Text;
+
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage response = await client.GetAsync("https://api.coinmarketcap.com/v1/ticker/" + crypto))
+
+
+                using (HttpResponseMessage response = await client.GetAsync("https://api.coinmarketcap.com/v1/ticker/"))
                 {
                     using (HttpContent content = response.Content)
                     {
@@ -69,20 +77,22 @@ namespace CoinMarketCapWPF
                         {
                             List<CoinValues> json = JsonConvert.DeserializeObject<List<CoinValues>>(myContent);
 
-                            cryptoID.Text = json[0].id;
-                            cryptoPrice.Text = "$" + json[0].price_usd;
-                            cryptoMarketCap.Text = "$" + json[0].market_cap_usd;
-                            crypto1HrChange.Text = json[0].percent_change_1h + "%";
-                            crypto24HrChange.Text = json[0].percent_change_24h + "%";
-                            crypto7DayChange.Text = json[0].percent_change_7d + "%";
+                            for (int i = 0; i < json.Count; i++)
+                            {
+                                cryptoList.Items.Add(json[i].id);
+                               
+                            }
+
+                           
+
                         }
 
                         //Catches the exception if coin is not valid
                         catch (Newtonsoft.Json.JsonSerializationException)
                         {
-                            cryptoName.Text = "Coin is invalid";
+                            cryptoID.Text = "Coin is invalid";
                         }
-                        
+
 
                     }
 
@@ -91,5 +101,55 @@ namespace CoinMarketCapWPF
 
         }
 
+        private async void cryptoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            using (HttpClient client = new HttpClient())
+            {
+
+
+                using (HttpResponseMessage response = await client.GetAsync("https://api.coinmarketcap.com/v1/ticker/"))
+                {
+                    using (HttpContent content = response.Content)
+                    {
+                        //sets myContent string as the reponded content from API
+                        string myContent = await content.ReadAsStringAsync();
+
+                        //try block for statement which could throw exception (mainly deserialize part)
+                        try
+                        {
+                            List<CoinValues> json = JsonConvert.DeserializeObject<List<CoinValues>>(myContent);
+
+                            for (int i = 0; i < json.Count; i++)
+                            {
+                                cryptoList.Items.Add(json[i].id);
+
+
+                                cryptoID.Text = json[cryptoList.SelectedIndex].id;
+                                cryptoPrice.Text = "$" + json[cryptoList.SelectedIndex].price_usd;
+                                cryptoMarketCap.Text = "$" + json[cryptoList.SelectedIndex].market_cap_usd;
+                                crypto1HrChange.Text = json[cryptoList.SelectedIndex].percent_change_1h + "%";
+                                crypto24HrChange.Text = json[cryptoList.SelectedIndex].percent_change_24h + "%";
+                                crypto7DayChange.Text = json[cryptoList.SelectedIndex].percent_change_7d + "%";
+
+
+                            }
+
+
+
+                        }
+
+                        //Catches the exception if coin is not valid
+                        catch (Newtonsoft.Json.JsonSerializationException)
+                        {
+                            cryptoID.Text = "Coin is invalid";
+                        }
+
+
+                    }
+
+                }
+            }
+        }
     }
 }

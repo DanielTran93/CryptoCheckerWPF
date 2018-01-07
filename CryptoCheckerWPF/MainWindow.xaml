@@ -7,10 +7,8 @@
         mc:Ignorable="d"
         Title="Crypto Checker" Height="550" Width="550">
     <Grid>
-        <TextBox x:Name="cryptoName" HorizontalAlignment="Left" Margin="16,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="101" Height="18"/>
         <TextBlock x:Name="cryptoID" HorizontalAlignment="Center" Margin="299,125,9,0" VerticalAlignment="Top" Width="234" Height="24" Background="Black" Foreground="White" TextWrapping="Wrap" Padding="8,0,0,0"/>
-        <Button x:Name="getPrice" Content="Check" HorizontalAlignment="Left" Margin="16,163,0,0" VerticalAlignment="Top" Width="75" Click="getPrice_Click" Height="20"/>
-        <TextBlock x:Name="enterTag" HorizontalAlignment="Left" Margin="16,98,0,0" TextWrapping="Wrap" Text="Enter your CryptoCurrency below. e.g. Bitcoin" VerticalAlignment="Top" Height="41" Width="141"/>
+        <Button x:Name="getPrice" Content="Get List (TOP 100)" HorizontalAlignment="Left" Margin="5,263,0,0" VerticalAlignment="Top" Width="198" Click="getPrice_Click" Height="20"/>
         <Label Content="Coin:" HorizontalAlignment="Left" Margin="255,125,0,0" VerticalAlignment="Top" Height="24"/>
         <Label Content="Price (USD): " HorizontalAlignment="Left" Margin="221,154,0,0" VerticalAlignment="Top" Height="24" Width="71"/>
         <TextBlock x:Name="cryptoPrice" HorizontalAlignment="Center" Margin="299,154,9,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234" Height="24" Background="Black" Foreground="White" Padding="8,0,0,0"/>
@@ -22,6 +20,9 @@
         <TextBlock x:Name="crypto24HrChange" HorizontalAlignment="Center" Margin="299,241,9,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234" Height="24" Background="Black" Foreground="White" Padding="8,0,0,0"/>
         <TextBlock x:Name="crypto7DayChange" HorizontalAlignment="Center" Margin="299,270,9,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234" Height="24" Background="Black" Foreground="White" Padding="8,0,0,0"/>
         <Label Content="7 Day Change:" HorizontalAlignment="Left" Margin="208,270,0,0" VerticalAlignment="Top" Height="29" Width="86"/>
+        <ComboBox x:Name="cryptoList" HorizontalAlignment="Left" Margin="5,288,0,0" VerticalAlignment="Top" Width="198" Height="22" SelectionChanged="cryptoList_SelectionChanged" >
+            
+        </ComboBox>
 
     </Grid>
 </Window>
