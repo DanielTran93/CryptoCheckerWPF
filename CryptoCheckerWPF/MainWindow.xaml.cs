@@ -18,10 +18,7 @@ using System.Windows.Shapes;
 
 namespace CoinMarketCapWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    /// 
+
 
     public partial class MainWindow : Window
     {
@@ -122,7 +119,6 @@ namespace CoinMarketCapWPF
 
                             for (int i = 0; i < json.Count; i++)
                             {
-                                cryptoList.Items.Add(json[i].id);
 
 
                                 cryptoID.Text = json[cryptoList.SelectedIndex].id;
